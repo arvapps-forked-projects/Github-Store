@@ -25,16 +25,6 @@ kotlin {
         }
     }
     
-    listOf(
-        iosArm64(),
-        iosSimulatorArm64()
-    ).forEach { iosTarget ->
-        iosTarget.binaries.framework {
-            baseName = "ComposeApp"
-            isStatic = true
-        }
-    }
-    
     jvm()
     
     sourceSets {
@@ -90,6 +80,8 @@ kotlin {
 
             implementation(libs.multiplatform.markdown.renderer)
             implementation(libs.multiplatform.markdown.renderer.coil3)
+
+//            implementation(libs.material.html.text)
         }
         commonTest.dependencies {
             implementation(libs.kotlin.test)
@@ -102,18 +94,6 @@ kotlin {
             // Ktor client for JVM Desktop
             implementation(libs.ktor.client.core)
             implementation(libs.ktor.client.java)
-            implementation(libs.ktor.client.content.negotiation)
-            implementation(libs.ktor.serialization.kotlinx.json)
-            implementation(libs.kotlinx.serialization.json)
-        }
-        iosMain.dependencies {
-            // Koin core
-            implementation(libs.koin.core)
-            implementation(libs.koin.compose)
-            implementation(libs.koin.compose.viewmodel)
-            // Ktor client for iOS
-            implementation(libs.ktor.client.core)
-            implementation(libs.ktor.client.darwin)
             implementation(libs.ktor.client.content.negotiation)
             implementation(libs.ktor.serialization.kotlinx.json)
             implementation(libs.kotlinx.serialization.json)

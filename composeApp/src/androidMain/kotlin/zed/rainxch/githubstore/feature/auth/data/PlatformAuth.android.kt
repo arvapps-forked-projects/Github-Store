@@ -4,7 +4,6 @@ import android.content.ClipData
 import android.content.ClipboardManager
 import android.content.Context
 import androidx.security.crypto.EncryptedSharedPreferences
-import androidx.security.crypto.MasterKey
 import androidx.security.crypto.MasterKey.*
 import zed.rainxch.githubstore.BuildConfig
 import kotlinx.serialization.json.Json

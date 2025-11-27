@@ -86,12 +86,12 @@ fun SmartInstallButton(
                             Text("Installing...")
                         }
 
-                        else -> {}  // Idle
+                        DownloadStage.IDLE -> { }
                     }
                 }
             } else {
                 Text(
-                    text = if (primaryAsset != null) "Install ${primaryAsset.contentType}" else "Not Available",
+                    text = if (primaryAsset != null) "Install" else "Not Available",
                     color = if (enabled) {
                         MaterialTheme.colorScheme.onPrimary
                     } else MaterialTheme.colorScheme.onSurface.copy(alpha = 0.4f),
