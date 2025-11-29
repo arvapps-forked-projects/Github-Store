@@ -1,7 +1,5 @@
 <div align="center">
-</br>
-<img src="https://github.com/XDdevv/Github-Store/blob/main/composeApp/src/commonMain/composeResources/drawable/app-icon.png" width="200" />
-
+<img src="https://github.com/XDdevv/Github-Store/blob/main/composeApp/src/commonMain/composeResources/drawable/app-icon.png" width="200" alt="Project logo"/>
 </div>
 
 <h1 align="center">Github Store</h1>
@@ -17,12 +15,15 @@ GithubStore is a cross‑platform “play store” for GitHub releases.
 It discovers repositories that ship real installable binaries and lets you install the latest release in one click.
 </p>
 
-<!-- <p align="center">
-  <img src="docs/preview-home.png" width="360"/>
-  <img src="docs/preview-details.png" width="360"/>
-</p> -->
+<p align="center">
+  <img src="screenshots/banner.png" />
+</p>
 
 ---
+
+### All screenshots can be found in [screenshots/](screenshots/) folder.
+
+[//]: # (<img src="/screenshots/preview.gif" align="right" width="320"/>)
 
 ## ✨ What is GithubStore?
 
@@ -36,6 +37,9 @@ GithubStore is a Kotlin Multiplatform app (Android + Desktop) that turns GitHub 
 The repository is currently private while the core is being stabilized, but it will be public and fully open source under the Apache 2.0 license very soon.
 
 ---
+
+## 🔃 Download
+Go to the [Releases](https://github.com/rainxchzed/Github-Store/releases) to download the latest APK.
 
 ## 🚀 Features
 
