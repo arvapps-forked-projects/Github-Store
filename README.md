@@ -56,7 +56,7 @@ Go to the [Releases](https://github.com/rainxchzed/Github-Store/releases) to dow
 
 - **Rich details screen**
   - App name, version, “Install latest” button.
-  - Stars, forks, open issues, contributors.
+  - Stars, forks, open issues.
   - Rendered README content (“About this app”).
   - Latest release notes (body) with markdown formatting.
   - List of installers with platform labels and file sizes.
@@ -114,7 +114,7 @@ If your repo meets these conditions, Github Store can find it through search and
    - If no suitable asset is found, the repo is excluded from results.
 
 3. **Details screen**
-   - Repository info: name, owner, description, stars, forks, issues, contributors.
+   - Repository info: name, owner, description, stars, forks, issues.
    - Latest release: tag, published date, body (changelog), assets.
    - README: loaded from the default branch and rendered as “About this app”.
 
