@@ -11,7 +11,7 @@
 </p>
 
 <p align="center">
-GithubStore is a cross‑platform “play store” for GitHub releases.  
+Github Store is a cross‑platform “play store” for GitHub releases.  
 It discovers repositories that ship real installable binaries and lets you install the latest release in one click.
 </p>
 
@@ -26,9 +26,9 @@ It discovers repositories that ship real installable binaries and lets you insta
 <img src="/screenshots/preview.gif" align="right" width="320"/>
 
 
-## ✨ What is GithubStore?
+## ✨ What is Github Store?
 
-GithubStore is a Kotlin Multiplatform app (Android + Desktop) that turns GitHub releases into a clean, app‑store style experience:
+Github Store is a Kotlin Multiplatform app (Android + Desktop) that turns GitHub releases into a clean, app‑store style experience:
 
 - Only shows repositories that actually provide installable assets (APK, EXE, DMG, etc.).
 - Detects your platform and surfaces the correct installer.
@@ -70,9 +70,9 @@ Go to the [Releases](https://github.com/rainxchzed/Github-Store/releases) to dow
   
 ---
 
-## 🔍 How does my app appear in GithubStore?
+## 🔍 How does my app appear in Github Store?
 
-GithubStore does not use any private indexing or manual curation rules.  
+Github Store does not use any private indexing or manual curation rules.  
 Your project can appear automatically if it follows these conditions:
 
 1. **Public repository on GitHub**
@@ -88,7 +88,7 @@ Your project can appear automatically if it follows these conditions:
      - Windows: `.exe`, `.msi`
      - macOS: `.dmg`, `.pkg`
      - Linux: `.deb`, `.rpm`
-   - GithubStore ignores GitHub’s auto‑generated source artifacts (`Source code (zip)` / `Source code (tar.gz)`).
+   - Github Store ignores GitHub’s auto‑generated source artifacts (`Source code (zip)` / `Source code (tar.gz)`).
 
 4. **Discoverable by search / topics**
    - Repositories are fetched via the public GitHub Search API.
@@ -97,11 +97,11 @@ Your project can appear automatically if it follows these conditions:
      - Desktop apps: topics like `desktop`, `windows`, `linux`, `macos`, `compose-desktop`, `electron`.
    - Having at least a few stars makes it more likely to appear under Popular/Updated/New sections.
 
-If your repo meets these conditions, GithubStore can find it through search and show it automatically—no manual submission required.
+If your repo meets these conditions, Github Store can find it through search and show it automatically—no manual submission required.
 
 ---
 
-## 🧭 How GithubStore works (high‑level)
+## 🧭 How Github Store works (high‑level)
 
 1. **Search**
    - Uses GitHub’s `/search/repositories` endpoint with platform‑aware queries.
@@ -126,28 +126,65 @@ If your repo meets these conditions, GithubStore can find it through search and 
 
 ---
 
-## 🧱 Tech stack
+## ⚙️ Tech stack
+
+- **Minimum Android SDK: 24**
 
 - **Language & Platform**
   - Kotlin Multiplatform (Android + JVM Desktop)
-  - Compose Multiplatform UI
+  - Compose Multiplatform UI (Material 3, icons, resources)
+
+- **Async & state**
+  - Kotlin Coroutines + Flow
+  - AndroidX Lifecycle (ViewModel + Runtime Compose) 
 
 - **Networking & Data**
-  - Ktor `HttpClient` for GitHub REST API.
-  - kotlinx.serialization for JSON models.
-  - Kotlinx.coroutines + Flow for async + streaming search results.
+  - Ktor 3 (HttpClient with OkHttp on Android, Java on Desktop)
+  - Kotlinx Serialization JSON.
+  - Kotlinx Coroutines + Flow for async + streaming search results.
+  - Kotlinx Datetime for time handling
 
-- **Architecture**
-  - Clean modular design with `core` (domain/models) and feature modules.
-  - Repository pattern for data access.
-  - ViewModel/state holder per screen (platform‑specific wrapper around shared logic).
+- **Dependency injection**
+  - Koin 4 (core, Android, Compose Multiplatform ViewModel)
 
-- **Auth & Deep‑links**
-  - GitHub OAuth (Device Code flow).
+- **Navigation**
+  - JetBrains Navigation Compose for shared navigation graph
+
+- **Auth & Security**
+  - GitHub OAuth (Device Code flow)
+  - AndroidX Security Crypto for token storage
+
+- **Media & markdown**
+  - Coil 3 (Ktor3 image loader)
+  - [multiplatform-markdown-renderer-m3](https://github.com/mikepenz/multiplatform-markdown-renderer) (+ Coil3 integration) for README/release notes
+
+- **Logging & tooling**
+  - Kermit logging
+  - Compose Hot Reload (desktop)
+  - ProGuard/R8 + resource shrinking for release builds
 
 ---
 
-## ✅ Pros / Why use GithubStore?
+## 🧱 Architecture
+
+Github Store is structured as a modular Kotlin Multiplatform app:
+
+- `app/`: navigation, DI setup (`initKoin`, `PlatformModules`, `SharedModules`), root `App.kt` and `MainViewModel`.
+- `core/`
+  - `domain/`: pure models (`GithubRepoSummary`, `GithubRelease`, `PlatformType`, `SystemArchitecture`, etc.) and platform abstractions (`Platform`, `AndroidPlatform`, `DesktopPlatform`).
+  - `data/`: Ktor GitHub client (`GitHubClient`), DTOs, mappers, repositories, token storage.
+  - `presentation/`: shared UI components, theme, and utilities (`UpdatedAtFormatter`, `ObserveAsEvents`, `Browser` expect/actual).
+- `feature/` (vertical feature packages)
+  - `auth/`: GitHub OAuth device‑code flow (`AuthRepository`, use cases, `AuthenticationViewModel`).
+  - `home/`, `search/`, `details/`: each with `data / domain / presentation` layers and their own `ViewModel`, state, actions, and composables.
+- Platform source sets:
+  - `androidMain/`: `MainActivity`, Android installers/downloaders, file locations, platform DI (`PlatformModules.android.kt`).
+  - `jvmMain/`: desktop entry (`main.kt`), installers/downloaders per OS, platform DI (`PlatformModules.jvm.kt`).
+
+Screenshots and marketing assets live in `screenshots/`, desktop app-icons in `composeApp/logo/`, and Android resources / icons are under `src/androidMain/res`.
+
+
+## ✅ Pros / Why use Github Store?
 
 - **No more hunting through GitHub releases**  
   See only repos that actually ship binaries for your platform.
@@ -165,7 +202,7 @@ If your repo meets these conditions, GithubStore can find it through search and 
 
 ## 🔑 Configuration
 
-GithubStore uses a GitHub OAuth app for authentication and API rate‑limit isolation.
+Github Store uses a GitHub OAuth app for authentication and API rate‑limit isolation.
 
 1. Create a GitHub OAuth app at **GitHub → Settings → Developer settings → OAuth Apps**.
 2. Set the callback URL to `githubstore://callback` (_Not quite important_).
@@ -176,7 +213,7 @@ GithubStore uses a GitHub OAuth app for authentication and API rate‑limit isol
 
 ## ⚠️ Disclaimer
 
-GithubStore only helps you discover and download release assets that are already published on GitHub by third‑party developers.  
+Github Store only helps you discover and download release assets that are already published on GitHub by third‑party developers.  
 The contents, safety, and behavior of those downloads are entirely the responsibility of their respective authors and distributors, not this project.  
 
 By using GithubStore, you understand and agree that you install and run any downloaded software at your own risk.  
@@ -185,7 +222,7 @@ This project does not review, validate, or guarantee that any installer is safe,
 
 ## 📄 License
 
-GithubStore will be released under the **Apache License, Version 2.0**.
+Github Store will be released under the **Apache License, Version 2.0**.
 ```
 Copyright 2025 rainxchzed
 
