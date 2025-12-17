@@ -360,6 +360,13 @@ class DesktopInstaller(
     private fun installDebPackage(file: File) {
         Logger.d { "Installing DEB package: ${file.absolutePath}" }
 
+        // NEW: Check if we are on an RPM system trying to install a DEB
+        if (linuxPackageType == LinuxPackageType.RPM) {
+            Logger.i { "Detected DEB package on RPM system. Initiating conversion flow." }
+            openTerminalForAlienConversion(file.absolutePath)
+            return
+        }
+
         val installMethods = listOf(
             listOf("pkexec", "apt", "install", "-y", file.absolutePath),
 
@@ -393,6 +400,61 @@ class DesktopInstaller(
         }
 
         throw IOException("Could not install DEB package. Please install it manually.")
+    }
+
+    // NEW: Handles the conversion of DEB to RPM and subsequent installation
+    private fun openTerminalForAlienConversion(filePath: String) {
+        Logger.d { "Opening terminal for Alien conversion and installation" }
+
+        val availableTerminals = detectAvailableTerminals()
+
+        if (availableTerminals.isEmpty()) {
+            Logger.e { "No terminal emulator found for conversion" }
+            tryShowNotification(
+                "Conversion Required",
+                "Please install 'alien', convert '$filePath' to RPM, and install manually."
+            )
+            throw IOException("No terminal found to run Alien conversion.")
+        }
+
+        // Script breakdown:
+        // 1. Check if alien exists. If not, try to install it (and rpm-build).
+        // 2. Create a temporary directory.
+        // 3. Run alien -r (to rpm) -c (scripts) on the file.
+        // 4. Install the resulting RPM.
+        // 5. Cleanup.
+        val command = buildString {
+            append("echo 'Detected DEB package on an RPM system.'; ")
+            append("echo 'This requires the \"alien\" tool to convert the package.'; echo ''; ")
+
+            // Step 1: Install Alien if missing
+            append("if ! command -v alien &> /dev/null; then ")
+            append("echo 'Alien not found. Attempting to install alien and rpm-build...'; ")
+            append("sudo dnf install -y alien rpm-build || sudo yum install -y alien rpm-build || sudo zypper install -y alien rpm-build; ")
+            append("fi; ")
+
+            // Check again if installation failed
+            append("if ! command -v alien &> /dev/null; then ")
+            append("echo 'Failed to install alien. Please install it manually.'; read; exit 1; ")
+            append("fi; ")
+
+            // Step 2 & 3: Convert
+            append("echo 'Converting package to RPM (this may take a moment)...'; ")
+            append("mkdir -p /tmp/alien_install; ")
+            append("cp '$filePath' /tmp/alien_install/pkg.deb; ")
+            append("cd /tmp/alien_install; ")
+            append("sudo alien -r -c -v pkg.deb; ")
+
+            // Step 4: Install Result
+            append("echo ''; echo 'Installing converted RPM...'; ")
+            append("sudo dnf install -y ./*.rpm || sudo yum install -y ./*.rpm || sudo rpm -i --nodeps ./*.rpm; ")
+
+            // Step 5: Cleanup and Exit
+            append("cd ..; rm -rf /tmp/alien_install; ")
+            append("echo ''; echo 'Process complete. Press Enter to close...'; read")
+        }
+
+        runCommandInTerminal(command, availableTerminals)
     }
 
     private fun installRpmPackage(file: File) {
@@ -436,136 +498,65 @@ class DesktopInstaller(
     }
 
     private fun openTerminalForDebInstall(filePath: String) {
-        Logger.d { "Opening terminal for DEB installation" }
-
-        val availableTerminals = detectAvailableTerminals()
-
-        if (availableTerminals.isEmpty()) {
-            Logger.e { "No terminal emulator found on system" }
-
-            tryShowNotification(
-                "Installation Required",
-                "Please install manually: sudo dpkg -i '$filePath' && sudo apt-get install -f -y"
-            )
-
-            tryCopyToClipboard("sudo dpkg -i '$filePath' && sudo apt-get install -f -y")
-
-            throw IOException(
-                "No terminal emulator found. Please install manually:\n" +
-                        "sudo dpkg -i '$filePath' && sudo apt-get install -f -y"
-            )
-        }
-
         val command =
             "echo 'Installing DEB package...'; sudo dpkg -i '$filePath' && sudo apt-get install -f -y; echo ''; echo 'Installation complete. Press Enter to close...'; read"
 
-        for (terminal in availableTerminals) {
-            try {
-                Logger.d { "Trying terminal: ${terminal.name}" }
-                val processBuilder = when (terminal) {
-                    LinuxTerminal.GNOME_TERMINAL -> ProcessBuilder(
-                        "gnome-terminal", "--", "bash", "-c", command
-                    )
-
-                    LinuxTerminal.KONSOLE -> ProcessBuilder(
-                        "konsole", "-e", "bash", "-c", command
-                    )
-
-                    LinuxTerminal.XTERM -> ProcessBuilder(
-                        "xterm", "-e", "bash", "-c", command
-                    )
-
-                    LinuxTerminal.XFCE4_TERMINAL -> ProcessBuilder(
-                        "xfce4-terminal", "-e", "bash -c \"$command\""
-                    )
-
-                    LinuxTerminal.ALACRITTY -> ProcessBuilder(
-                        "alacritty", "-e", "bash", "-c", command
-                    )
-
-                    LinuxTerminal.KITTY -> ProcessBuilder(
-                        "kitty", "bash", "-c", command
-                    )
-
-                    LinuxTerminal.TILIX -> ProcessBuilder(
-                        "tilix", "-e", "bash -c \"$command\""
-                    )
-
-                    LinuxTerminal.MATE_TERMINAL -> ProcessBuilder(
-                        "mate-terminal", "-e", "bash -c \"$command\""
-                    )
-                }
-
-                processBuilder.start()
-                Logger.d { "Terminal opened successfully: ${terminal.name}" }
-                return
-            } catch (e: IOException) {
-                Logger.w { "Failed to open ${terminal.name}: ${e.message}" }
-            }
+        val availableTerminals = detectAvailableTerminals()
+        if (availableTerminals.isEmpty()) {
+            // Fallback for clipboard if no terminal found
+            tryShowNotification("Installation Required", "Please install manually: sudo dpkg -i '$filePath'...")
+            tryCopyToClipboard("sudo dpkg -i '$filePath' && sudo apt-get install -f -y")
+            throw IOException("No terminal emulator found.")
         }
 
-        throw IOException("Could not open any terminal emulator")
+        runCommandInTerminal(command, availableTerminals)
     }
 
     private fun openTerminalForRpmInstall(filePath: String) {
-        Logger.d { "Opening terminal for RPM installation" }
-
-        val availableTerminals = detectAvailableTerminals()
-
-        if (availableTerminals.isEmpty()) {
-            Logger.e { "No terminal emulator found on system" }
-
-            tryShowNotification(
-                "Installation Required",
-                "Please install manually: sudo dnf install -y --nogpgcheck '$filePath'"
-            )
-
-            tryCopyToClipboard("sudo dnf install -y --nogpgcheck '$filePath'")
-
-            throw IOException(
-                "No terminal emulator found. Please install manually:\n" +
-                        "sudo dnf install -y --nogpgcheck '$filePath'"
-            )
-        }
-
         val command = "echo 'Installing RPM package...'; " +
                 "sudo dnf install -y --nogpgcheck '$filePath' || " +
                 "sudo yum install -y --nogpgcheck '$filePath' || " +
                 "sudo rpm -i --nosignature '$filePath'; " +
                 "echo ''; echo 'Installation complete. Press Enter to close...'; read"
 
-        for (terminal in availableTerminals) {
+        val availableTerminals = detectAvailableTerminals()
+        if (availableTerminals.isEmpty()) {
+            // Fallback for clipboard if no terminal found
+            tryShowNotification("Installation Required", "Please install manually: sudo dnf install -y '$filePath'...")
+            tryCopyToClipboard("sudo dnf install -y --nogpgcheck '$filePath'")
+            throw IOException("No terminal emulator found.")
+        }
+
+        runCommandInTerminal(command, availableTerminals)
+    }
+
+    // UPDATED: Refactored generic terminal runner to handle the different commands
+    private fun runCommandInTerminal(command: String, terminals: List<LinuxTerminal>) {
+        for (terminal in terminals) {
             try {
                 Logger.d { "Trying terminal: ${terminal.name}" }
                 val processBuilder = when (terminal) {
                     LinuxTerminal.GNOME_TERMINAL -> ProcessBuilder(
                         "gnome-terminal", "--", "bash", "-c", command
                     )
-
                     LinuxTerminal.KONSOLE -> ProcessBuilder(
                         "konsole", "-e", "bash", "-c", command
                     )
-
                     LinuxTerminal.XTERM -> ProcessBuilder(
                         "xterm", "-e", "bash", "-c", command
                     )
-
                     LinuxTerminal.XFCE4_TERMINAL -> ProcessBuilder(
                         "xfce4-terminal", "-e", "bash -c \"$command\""
                     )
-
                     LinuxTerminal.ALACRITTY -> ProcessBuilder(
                         "alacritty", "-e", "bash", "-c", command
                     )
-
                     LinuxTerminal.KITTY -> ProcessBuilder(
                         "kitty", "bash", "-c", command
                     )
-
                     LinuxTerminal.TILIX -> ProcessBuilder(
                         "tilix", "-e", "bash -c \"$command\""
                     )
-
                     LinuxTerminal.MATE_TERMINAL -> ProcessBuilder(
                         "mate-terminal", "-e", "bash -c \"$command\""
                     )
@@ -578,10 +569,8 @@ class DesktopInstaller(
                 Logger.w { "Failed to open ${terminal.name}: ${e.message}" }
             }
         }
-
         throw IOException("Could not open any terminal emulator")
     }
-
 
     private fun detectAvailableTerminals(): List<LinuxTerminal> {
         val linuxTerminals = mutableListOf<LinuxTerminal>()
