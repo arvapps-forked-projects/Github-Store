@@ -67,4 +67,47 @@
 
     <string name="error_cancelled">Cancelled</string>
     <string name="error_unknown">Unknown error</string>
+
+    <string name="language_label">Language:</string>
+
+    <string name="discover_repositories">Discover Repositories</string>
+    <string name="search_repositories_hint">Search repo, description…</string>
+
+    <!-- Filters -->
+    <string name="filter_by_language">Filter by Language</string>
+
+    <!-- Results -->
+    <string name="results_found">%1$d results were found</string>
+
+    <!-- Loading / errors -->
+    <string name="retry">Retry</string>
+
+    <!-- Sorting -->
+    <string name="sort_by">Sort by</string>
+    <string name="close">Close</string>
+
+    <string name="sort_most_stars">Most Stars</string>
+    <string name="sort_most_forks">Most Forks</string>
+    <string name="sort_best_match">Best Match</string>
+
+    <!-- Programming languages -->
+    <string name="language_all">All Languages</string>
+    <string name="language_kotlin">Kotlin</string>
+    <string name="language_java">Java</string>
+    <string name="language_javascript">JavaScript</string>
+    <string name="language_typescript">TypeScript</string>
+    <string name="language_python">Python</string>
+    <string name="language_swift">Swift</string>
+    <string name="language_rust">Rust</string>
+    <string name="language_go">Go</string>
+    <string name="language_csharp">C#</string>
+    <string name="language_cpp">C++</string>
+    <string name="language_c">C</string>
+    <string name="language_dart">Dart</string>
+    <string name="language_ruby">Ruby</string>
+    <string name="language_php">PHP</string>
+
+    <string name="search_failed">Search failed</string>
+    <string name="no_repositories_found">No repositories found</string>
+
 </resources>

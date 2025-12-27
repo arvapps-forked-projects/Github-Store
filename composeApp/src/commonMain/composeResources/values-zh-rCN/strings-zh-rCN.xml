@@ -53,4 +53,42 @@
 
     <string name="error_cancelled">已取消</string>
     <string name="error_unknown">未知错误</string>
+
+    <string name="language_label">语言：</string>
+
+    <string name="discover_repositories">发现仓库</string>
+    <string name="search_repositories_hint">搜索仓库、描述…</string>
+
+    <string name="filter_by_language">按语言筛选</string>
+
+    <string name="results_found">找到 %1$d 个结果</string>
+
+    <string name="retry">重试</string>
+
+    <string name="sort_by">排序方式</string>
+    <string name="close">关闭</string>
+
+    <string name="sort_most_stars">最多星标</string>
+    <string name="sort_most_forks">最多分叉</string>
+    <string name="sort_best_match">最佳匹配</string>
+
+    <string name="language_all">所有语言</string>
+    <string name="language_kotlin">Kotlin</string>
+    <string name="language_java">Java</string>
+    <string name="language_javascript">JavaScript</string>
+    <string name="language_typescript">TypeScript</string>
+    <string name="language_python">Python</string>
+    <string name="language_swift">Swift</string>
+    <string name="language_rust">Rust</string>
+    <string name="language_go">Go</string>
+    <string name="language_csharp">C#</string>
+    <string name="language_cpp">C++</string>
+    <string name="language_c">C</string>
+    <string name="language_dart">Dart</string>
+    <string name="language_ruby">Ruby</string>
+    <string name="language_php">PHP</string>
+
+    <string name="search_failed">搜索失败</string>
+    <string name="no_repositories_found">未找到仓库</string>
+
 </resources>

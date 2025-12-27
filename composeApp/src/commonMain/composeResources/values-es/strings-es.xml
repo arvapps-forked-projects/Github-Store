@@ -54,4 +54,41 @@
     <string name="error_cancelled">Cancelado</string>
     <string name="error_unknown">Error desconocido</string>
 
+    <string name="language_label">Idioma:</string>
+
+    <string name="discover_repositories">Descubrir repositorios</string>
+    <string name="search_repositories_hint">Buscar repositorio, descripción…</string>
+
+    <string name="filter_by_language">Filtrar por lenguaje</string>
+
+    <string name="results_found">%1$d resultados encontrados</string>
+
+    <string name="retry">Reintentar</string>
+
+    <string name="sort_by">Ordenar por</string>
+    <string name="close">Cerrar</string>
+
+    <string name="sort_most_stars">Más estrellas</string>
+    <string name="sort_most_forks">Más forks</string>
+    <string name="sort_best_match">Mejor coincidencia</string>
+
+    <string name="language_all">Todos los lenguajes</string>
+    <string name="language_kotlin">Kotlin</string>
+    <string name="language_java">Java</string>
+    <string name="language_javascript">JavaScript</string>
+    <string name="language_typescript">TypeScript</string>
+    <string name="language_python">Python</string>
+    <string name="language_swift">Swift</string>
+    <string name="language_rust">Rust</string>
+    <string name="language_go">Go</string>
+    <string name="language_csharp">C#</string>
+    <string name="language_cpp">C++</string>
+    <string name="language_c">C</string>
+    <string name="language_dart">Dart</string>
+    <string name="language_ruby">Ruby</string>
+    <string name="language_php">PHP</string>
+
+    <string name="search_failed">La búsqueda falló</string>
+    <string name="no_repositories_found">No se encontraron repositorios</string>
+
 </resources>

@@ -54,4 +54,41 @@
     <string name="error_cancelled">Отменено</string>
     <string name="error_unknown">Неизвестная ошибка</string>
 
+    <string name="language_label">Язык:</string>
+
+    <string name="discover_repositories">Поиск репозиториев</string>
+    <string name="search_repositories_hint">Поиск по репозиторию, описанию…</string>
+
+    <string name="filter_by_language">Фильтр по языку</string>
+
+    <string name="results_found">Найдено результатов: %1$d</string>
+
+    <string name="retry">Повторить</string>
+
+    <string name="sort_by">Сортировать по</string>
+    <string name="close">Закрыть</string>
+
+    <string name="sort_most_stars">Больше звёзд</string>
+    <string name="sort_most_forks">Больше форков</string>
+    <string name="sort_best_match">Лучшее совпадение</string>
+
+    <string name="language_all">Все языки</string>
+    <string name="language_kotlin">Kotlin</string>
+    <string name="language_java">Java</string>
+    <string name="language_javascript">JavaScript</string>
+    <string name="language_typescript">TypeScript</string>
+    <string name="language_python">Python</string>
+    <string name="language_swift">Swift</string>
+    <string name="language_rust">Rust</string>
+    <string name="language_go">Go</string>
+    <string name="language_csharp">C#</string>
+    <string name="language_cpp">C++</string>
+    <string name="language_c">C</string>
+    <string name="language_dart">Dart</string>
+    <string name="language_ruby">Ruby</string>
+    <string name="language_php">PHP</string>
+
+    <string name="search_failed">Поиск не удался</string>
+    <string name="no_repositories_found">Репозитории не найдены</string>
+
 </resources>
