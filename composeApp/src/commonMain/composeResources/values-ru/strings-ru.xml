@@ -91,4 +91,31 @@
     <string name="search_failed">Поиск не удался</string>
     <string name="no_repositories_found">Репозитории не найдены</string>
 
+    <string name="settings_title">Настройки</string>
+
+    <string name="section_appearance">ВНЕШНИЙ ВИД</string>
+    <string name="section_about">О ПРИЛОЖЕНИИ</string>
+
+    <string name="theme_color">Цвет темы</string>
+    <string name="amoled_black_theme">AMOLED чёрная тема</string>
+    <string name="amoled_black_description">Чёрный фон для тёмного режима</string>
+    <string name="selected_color">Выбранный цвет: %1$s</string>
+
+    <string name="version">Версия</string>
+    <string name="help_support">Помощь и поддержка</string>
+
+    <string name="logout">Выйти</string>
+
+    <string name="logout_success">Вы успешно вышли, перенаправление...</string>
+
+    <string name="warning">Внимание!</string>
+    <string name="logout_confirmation">Вы уверены, что хотите выйти?</string>
+
+    <string name="theme_dynamic">Динамическая</string>
+    <string name="theme_ocean">Океан</string>
+    <string name="theme_purple">Фиолетовая</string>
+    <string name="theme_forest">Лесная</string>
+    <string name="theme_slate">Сланцевая</string>
+    <string name="theme_amber">Янтарная</string>
+
 </resources>

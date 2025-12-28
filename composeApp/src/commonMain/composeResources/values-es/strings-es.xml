@@ -91,4 +91,31 @@
     <string name="search_failed">La búsqueda falló</string>
     <string name="no_repositories_found">No se encontraron repositorios</string>
 
+    <string name="settings_title">Configuración</string>
+
+    <string name="section_appearance">APARIENCIA</string>
+    <string name="section_about">ACERCA DE</string>
+
+    <string name="theme_color">Color del tema</string>
+    <string name="amoled_black_theme">Tema negro AMOLED</string>
+    <string name="amoled_black_description">Fondo negro puro para modo oscuro</string>
+    <string name="selected_color">Color seleccionado: %1$s</string>
+
+    <string name="version">Versión</string>
+    <string name="help_support">Ayuda y soporte</string>
+
+    <string name="logout">Cerrar sesión</string>
+
+    <string name="logout_success">Sesión cerrada correctamente, redirigiendo…</string>
+
+    <string name="warning">¡Advertencia!</string>
+    <string name="logout_confirmation">¿Estás seguro de que deseas cerrar sesión?</string>
+
+    <string name="theme_dynamic">Dinámico</string>
+    <string name="theme_ocean">Océano</string>
+    <string name="theme_purple">Púrpura</string>
+    <string name="theme_forest">Bosque</string>
+    <string name="theme_slate">Pizarra</string>
+    <string name="theme_amber">Ámbar</string>
+
 </resources>

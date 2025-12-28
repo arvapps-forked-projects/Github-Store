@@ -91,4 +91,31 @@
     <string name="search_failed">搜索失败</string>
     <string name="no_repositories_found">未找到仓库</string>
 
+    <string name="settings_title">设置</string>
+
+    <string name="section_appearance">外观</string>
+    <string name="section_about">关于</string>
+
+    <string name="theme_color">主题颜色</string>
+    <string name="amoled_black_theme">AMOLED 黑色主题</string>
+    <string name="amoled_black_description">深色模式下的纯黑背景</string>
+    <string name="selected_color">已选择颜色：%1$s</string>
+
+    <string name="version">版本</string>
+    <string name="help_support">帮助与支持</string>
+
+    <string name="logout">退出登录</string>
+
+    <string name="logout_success">已成功退出，正在跳转…</string>
+
+    <string name="warning">警告！</string>
+    <string name="logout_confirmation">确定要退出登录吗？</string>
+
+    <string name="theme_dynamic">动态</string>
+    <string name="theme_ocean">海洋</string>
+    <string name="theme_purple">紫色</string>
+    <string name="theme_forest">森林</string>
+    <string name="theme_slate">石板</string>
+    <string name="theme_amber">琥珀</string>
+
 </resources>

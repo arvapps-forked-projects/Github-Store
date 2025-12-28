@@ -91,4 +91,31 @@
     <string name="search_failed">検索に失敗しました</string>
     <string name="no_repositories_found">リポジトリが見つかりませんでした</string>
 
+    <string name="settings_title">設定</string>
+
+    <string name="section_appearance">外観</string>
+    <string name="section_about">情報</string>
+
+    <string name="theme_color">テーマカラー</string>
+    <string name="amoled_black_theme">AMOLED ブラックテーマ</string>
+    <string name="amoled_black_description">ダークモード用の純黒背景</string>
+    <string name="selected_color">選択された色：%1$s</string>
+
+    <string name="version">バージョン</string>
+    <string name="help_support">ヘルプとサポート</string>
+
+    <string name="logout">ログアウト</string>
+
+    <string name="logout_success">ログアウトしました。リダイレクト中…</string>
+
+    <string name="warning">警告！</string>
+    <string name="logout_confirmation">ログアウトしてもよろしいですか？</string>
+
+    <string name="theme_dynamic">ダイナミック</string>
+    <string name="theme_ocean">オーシャン</string>
+    <string name="theme_purple">パープル</string>
+    <string name="theme_forest">フォレスト</string>
+    <string name="theme_slate">スレート</string>
+    <string name="theme_amber">アンバー</string>
+
 </resources>
