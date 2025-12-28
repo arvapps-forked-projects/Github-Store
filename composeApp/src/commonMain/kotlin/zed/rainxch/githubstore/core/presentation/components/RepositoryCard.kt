@@ -12,11 +12,14 @@ import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.CheckCircle
+import androidx.compose.material.icons.filled.OpenInBrowser
 import androidx.compose.material.icons.filled.Update
 import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.ExperimentalMaterial3ExpressiveApi
 import androidx.compose.material3.Icon
+import androidx.compose.material3.IconButton
+import androidx.compose.material3.IconButtonDefaults
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
@@ -25,6 +28,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.layout.ContentScale
+import androidx.compose.ui.platform.LocalUriHandler
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
@@ -32,6 +36,7 @@ import coil3.compose.AsyncImage
 import githubstore.composeapp.generated.resources.Res
 import githubstore.composeapp.generated.resources.home_view_details
 import githubstore.composeapp.generated.resources.installed
+import githubstore.composeapp.generated.resources.open_in_browser
 import githubstore.composeapp.generated.resources.update_available
 import githubstore.composeapp.generated.resources.updated_yesterday
 import org.jetbrains.compose.resources.stringResource
@@ -50,6 +55,7 @@ fun RepositoryCard(
     onClick: () -> Unit,
     modifier: Modifier = Modifier
 ) {
+    val uriHandler = LocalUriHandler.current
     Card(
         modifier = modifier.fillMaxWidth(),
         onClick = onClick,
@@ -79,7 +85,10 @@ fun RepositoryCard(
                 Text(
                     text = repository.owner.login,
                     style = MaterialTheme.typography.titleMedium,
-                    color = MaterialTheme.colorScheme.outline
+                    color = MaterialTheme.colorScheme.outline,
+                    maxLines = 1,
+                    softWrap = false,
+                    overflow = TextOverflow.Ellipsis
                 )
 
                 Text(
@@ -99,7 +108,10 @@ fun RepositoryCard(
                 text = repository.name,
                 fontWeight = FontWeight.Bold,
                 style = MaterialTheme.typography.titleLarge,
-                color = MaterialTheme.colorScheme.onSurface
+                color = MaterialTheme.colorScheme.onSurface,
+                maxLines = 1,
+                softWrap = false,
+                overflow = TextOverflow.Ellipsis
             )
 
             Spacer(modifier = Modifier.height(4.dp))
@@ -110,7 +122,8 @@ fun RepositoryCard(
                     color = MaterialTheme.colorScheme.onSurfaceVariant,
                     maxLines = 2,
                     overflow = TextOverflow.Ellipsis,
-                    style = MaterialTheme.typography.bodyLarge
+                    style = MaterialTheme.typography.bodyLarge,
+                    softWrap = false
                 )
             }
 
@@ -124,20 +137,29 @@ fun RepositoryCard(
                 Text(
                     text = "⭐ ${repository.stargazersCount}",
                     style = MaterialTheme.typography.titleMedium,
-                    color = MaterialTheme.colorScheme.onSurfaceVariant
+                    color = MaterialTheme.colorScheme.onSurfaceVariant,
+                    maxLines = 1,
+                    softWrap = false,
+                    overflow = TextOverflow.Ellipsis
                 )
 
                 Text(
                     text = "• 🌴 ${repository.forksCount}",
                     style = MaterialTheme.typography.titleMedium,
-                    color = MaterialTheme.colorScheme.onSurfaceVariant
+                    color = MaterialTheme.colorScheme.onSurfaceVariant,
+                    maxLines = 1,
+                    softWrap = false,
+                    overflow = TextOverflow.Ellipsis
                 )
 
                 repository.language?.let {
                     Text(
                         text = "• $it",
                         style = MaterialTheme.typography.titleMedium,
-                        color = MaterialTheme.colorScheme.onSurfaceVariant
+                        color = MaterialTheme.colorScheme.onSurfaceVariant,
+                        maxLines = 1,
+                        softWrap = false,
+                        overflow = TextOverflow.Ellipsis
                     )
                 }
             }
@@ -155,16 +177,41 @@ fun RepositoryCard(
             Text(
                 text = formatUpdatedAt(repository.updatedAt),
                 style = MaterialTheme.typography.titleMedium,
-                color = MaterialTheme.colorScheme.outline
+                color = MaterialTheme.colorScheme.outline,
+                maxLines = 1,
+                softWrap = false,
+                overflow = TextOverflow.Ellipsis
             )
 
             Spacer(Modifier.height(24.dp))
 
-            GithubStoreButton(
-                text = stringResource(Res.string.home_view_details),
-                onClick = onClick,
-                modifier = Modifier.fillMaxWidth()
-            )
+            Row(
+                modifier = Modifier.fillMaxWidth(),
+                verticalAlignment = Alignment.CenterVertically,
+                horizontalArrangement = Arrangement.spacedBy(8.dp)
+            ) {
+                GithubStoreButton(
+                    text = stringResource(Res.string.home_view_details),
+                    onClick = onClick,
+                    modifier = Modifier.weight(1f)
+                )
+
+                IconButton(
+                    onClick = {
+                        uriHandler.openUri(repository.htmlUrl)
+                    },
+                    colors = IconButtonDefaults.iconButtonColors(
+                        containerColor = MaterialTheme.colorScheme.primaryContainer,
+                        contentColor = MaterialTheme.colorScheme.onPrimaryContainer
+                    ),
+                    shapes = IconButtonDefaults.shapes(),
+                ) {
+                    Icon(
+                        imageVector = Icons.Default.OpenInBrowser,
+                        contentDescription = stringResource(Res.string.open_in_browser),
+                    )
+                }
+            }
         }
     }
 }
