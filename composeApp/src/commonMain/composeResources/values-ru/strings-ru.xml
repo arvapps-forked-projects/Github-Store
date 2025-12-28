@@ -27,7 +27,7 @@
     <string name="updating_x_of_y">Обновление %1$d из %2$d</string>
     <string name="currently_updating">Сейчас: %1$s</string>
 
-    <string name="percent">%1$d%</string>
+    <string name="percent">%1$d%%</string>
 
     <string name="waiting_for_authorization">Ожидание авторизации…</string>
     <string name="signed_in">Вход выполнен!</string>
@@ -153,6 +153,10 @@
     <string name="installed_version">• Установлено: %1$s</string>
     <string name="architecture_compatible">Совместимо с архитектурой</string>
     <string name="update_to_version">Обновить до %1$s</string>
+
+    <string name="no_release_notes">Нет заметок о выпуске</string>
+    <string name="open_in_browser">Открыть в браузере</string>
+    <string name="show_install_options">Показать параметры установки</string>
 
     <string name="error_load_details">Не удалось загрузить данные</string>
     <string name="installer_saved_downloads">Установщик сохранён в папку Загрузки</string>
