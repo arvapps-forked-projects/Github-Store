@@ -14,8 +14,8 @@ plugins {
     alias(libs.plugins.androidx.room)
 }
 
-val appVersionName = "1.4.2"
-val appVersionCode = 8
+val appVersionName = "1.5.0"
+val appVersionCode = 9
 
 // Load local.properties for secrets like GITHUB_CLIENT_ID
 val localProps = Properties().apply {
