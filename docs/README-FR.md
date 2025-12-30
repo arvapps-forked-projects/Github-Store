@@ -19,13 +19,17 @@
 </p>
 
 <p align="center">
+<a href="/docs/README-RU.md" target="_blank"> Русский </a> | <a href="/README.md" target="_blank"> English </a> | <a href="/docs/README-ES.md" target="_blank"> Español </a> | <a href="/docs/README-FR.md" target="_blank"> Français </a> | <a href="/docs/README-KR.md" target="_blank"> 한국어 </a> | <a href="/docs/README-ZH.md" target="_blank">中文</a> | <a href="/docs/README-JA.md" target="_blank">日本語</a>
+</p>
+
+<p align="center">
 GitHub Store est un « Play Store » multiplateforme pour les releases GitHub.
 Il découvre des dépôts proposant de vrais binaires installables et vous permet
 de les installer, suivre et mettre à jour depuis un seul endroit.
 </p>
 
 <p align="center">
-  <img src="screenshots/banner.png" />
+  <img src="../screenshots/banner.png" />
 </p>
 
 ---
