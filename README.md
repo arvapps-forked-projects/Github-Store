@@ -282,6 +282,9 @@ your own risk.
 This project does not review, validate, or guarantee that any installer is safe, free of malware, or
 fit for any particular purpose.
 
+## Stats
+![Alt](https://repobeats.axiom.co/api/embed/20367dca127572e9c47db33850979d78df2c6a8b.svg "Repobeats analytics image")
+
 ## 📄 License
 
 GitHub Store will be released under the **Apache License, Version 2.0**.
