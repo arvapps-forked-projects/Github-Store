@@ -49,15 +49,6 @@ clean, app‑store style experience:
 
 ---
 
-## 🏆 Featured In
-
-<a href="https://www.youtube.com/@howtomen">
-  <img src="https://img.shields.io/badge/Featured%20by-HowToMen-red?logo=youtube" alt="Featured by HowToMen">
-</a>
-
-- **HowToMen**: [Top 20 Best Android Apps 2026 (860K subscribers)](https://www.youtube.com/watch?v=7favc9MDedQ)
-- **F-Droid**: [#1 in App Store category](https://f-droid.org/en/categories/app-store-updater/)
-
 ## 🔃 Download
 
 <a href="https://github.com/rainxchzed/Github-Store/releases">
@@ -72,6 +63,15 @@ clean, app‑store style experience:
 > On macOS, you may see a warning that Apple cannot verify GitHub Store is free of malware. This
 > happens because the app is distributed outside the App Store and is not notarized yet. You can allow
 > it via System Settings → Privacy & Security → Open Anyway.
+
+## 🏆 Featured In
+
+<a href="https://www.youtube.com/@howtomen">
+  <img src="https://img.shields.io/badge/Featured%20by-HowToMen-red?logo=youtube" alt="Featured by HowToMen">
+</a>
+
+- **HowToMen**: [Top 20 Best Android Apps 2026 (860K subscribers)](https://www.youtube.com/watch?v=7favc9MDedQ)
+- **F-Droid**: [#1 in App Store category](https://f-droid.org/en/categories/app-store-updater/)
 
 ## 🚀 Features
 
@@ -247,7 +247,7 @@ Your support helps me:
 - Build new features
 - Create more free tools for developers
 
-Can't sponsor? Star the repo and share with others! ⭐
+Or star the repo and share with others! ⭐
 
 ## Star History
 
