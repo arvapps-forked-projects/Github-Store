@@ -113,7 +113,7 @@
     <!-- Appearance -->
     <string name="theme_color">থিমের রঙ</string>
     <string name="amoled_black_theme">AMOLED কালো থিম</string>
-    <string name="amoled_black_description">কালো মোডের জন্য সম্পূর্ণ কালো ব্যাকগ্রাউন্ড</string>
+    <string name="amoled_black_description">অন্ধকার মোডের জন্য সম্পূর্ণ কালো ব্যাকগ্রাউন্ড</string>
     <string name="selected_color">নির্বাচিত রঙ: %1$s</string>
 
     <!-- About -->
@@ -243,8 +243,8 @@
     <string name="system_font">সিস্টেম ফন্ট</string>
     <string name="system_font_description">আরও ভালো পাঠযোগ্যতার জন্য ডিভাইসের ফন্ট ব্যবহার করুন</string>
 
-    <string name="theme_light">সাদা</string>
-    <string name="theme_dark">কালো</string>
+    <string name="theme_light">উজ্জ্বল</string>
+    <string name="theme_dark">অন্ধকার</string>
     <string name="theme_system">সিস্টেম</string>
 
 </resources>
