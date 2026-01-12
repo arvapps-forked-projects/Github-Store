@@ -12,8 +12,13 @@ import io.ktor.client.request.parameter
 import io.ktor.client.request.put
 import io.ktor.http.isSuccess
 import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.async
+import kotlinx.coroutines.awaitAll
+import kotlinx.coroutines.coroutineScope
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.first
+import kotlinx.coroutines.sync.Semaphore
+import kotlinx.coroutines.sync.withPermit
 import kotlinx.coroutines.withContext
 import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
@@ -61,7 +66,7 @@ class StarredRepositoryImpl(
                     return@withContext Result.success(Unit)
                 }
 
-                val starredRepos = mutableListOf<StarredRepo>()
+                val allRepos = mutableListOf<GitHubStarredResponse>()
                 var page = 1
                 val perPage = 100
 
@@ -86,48 +91,58 @@ class StarredRepositoryImpl(
 
                     if (repos.isEmpty()) break
 
-                    val now = Clock.System.now().toEpochMilliseconds()
-
-                    repos.forEach { repo ->
-                        // Check if repo has valid release assets
-                        val hasValidAssets = checkForValidAssets(repo.owner.login, repo.name)
-
-                        if (hasValidAssets) {
-                            val installedApp = installedAppsDao.getAppByRepoId(repo.id)
-
-                            starredRepos.add(
-                                StarredRepo(
-                                    repoId = repo.id,
-                                    repoName = repo.name,
-                                    repoOwner = repo.owner.login,
-                                    repoOwnerAvatarUrl = repo.owner.avatarUrl,
-                                    repoDescription = repo.description,
-                                    primaryLanguage = repo.language,
-                                    repoUrl = repo.htmlUrl,
-                                    stargazersCount = repo.stargazersCount,
-                                    forksCount = repo.forksCount,
-                                    openIssuesCount = repo.openIssuesCount,
-                                    isInstalled = installedApp != null,
-                                    installedPackageName = installedApp?.packageName,
-                                    latestVersion = null,
-                                    latestReleaseUrl = null,
-                                    starredAt = repo.starredAt?.let {
-                                        Instant.parse(it).toEpochMilliseconds()
-                                    },
-                                    addedAt = now,
-                                    lastSyncedAt = now
-                                )
-                            )
-                        }
-                    }
+                    allRepos.addAll(repos)
 
                     if (repos.size < perPage) break
                     page++
                 }
 
-                // Replace all starred repos
-                dao.clearAll()
-                dao.insertAllStarred(starredRepos)
+                val now = Clock.System.now().toEpochMilliseconds()
+                val starredRepos = mutableListOf<StarredRepo>()
+
+                // Process in parallel to avoid sequential N+1 delays
+                coroutineScope {
+                    val semaphore = Semaphore(25)
+                    val deferredResults = allRepos.map { repo ->
+                        async {
+                            semaphore.withPermit {
+                                val hasValidAssets = checkForValidAssets(repo.owner.login, repo.name)
+                                if (hasValidAssets) {
+                                    val installedApp = installedAppsDao.getAppByRepoId(repo.id)
+                                    StarredRepo(
+                                        repoId = repo.id,
+                                        repoName = repo.name,
+                                        repoOwner = repo.owner.login,
+                                        repoOwnerAvatarUrl = repo.owner.avatarUrl,
+                                        repoDescription = repo.description,
+                                        primaryLanguage = repo.language,
+                                        repoUrl = repo.htmlUrl,
+                                        stargazersCount = repo.stargazersCount,
+                                        forksCount = repo.forksCount,
+                                        openIssuesCount = repo.openIssuesCount,
+                                        isInstalled = installedApp != null,
+                                        installedPackageName = installedApp?.packageName,
+                                        latestVersion = null,
+                                        latestReleaseUrl = null,
+                                        starredAt = repo.starredAt?.let {
+                                            Instant.parse(it).toEpochMilliseconds()
+                                        },
+                                        addedAt = now,
+                                        lastSyncedAt = now
+                                    )
+                                } else {
+                                    null
+                                }
+                            }
+                        }
+                    }
+
+                    deferredResults.awaitAll().filterNotNull().let { validRepos ->
+                        starredRepos.addAll(validRepos)
+                    }
+                }
+
+                dao.replaceAllStarred(starredRepos)
 
                 Result.success(Unit)
             } catch (e: Exception) {
@@ -169,6 +184,7 @@ class StarredRepositoryImpl(
 
             relevantAssets.isNotEmpty()
         } catch (e: Exception) {
+            Logger.w(e) { "Failed to check valid assets for $owner/$repo" }
             false
         }
     }

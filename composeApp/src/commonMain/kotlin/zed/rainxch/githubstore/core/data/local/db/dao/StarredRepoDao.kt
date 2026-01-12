@@ -4,6 +4,7 @@ import androidx.room.Dao
 import androidx.room.Insert
 import androidx.room.OnConflictStrategy
 import androidx.room.Query
+import androidx.room.Transaction
 import kotlinx.coroutines.flow.Flow
 import zed.rainxch.githubstore.core.data.local.db.entities.StarredRepo
 
@@ -64,4 +65,10 @@ interface StarredRepoDao {
     
     @Query("SELECT MAX(lastSyncedAt) FROM starred_repos")
     suspend fun getLastSyncTime(): Long?
+
+    @Transaction
+    suspend fun replaceAllStarred(repos: List<StarredRepo>) {
+        clearAll()
+        insertAllStarred(repos)
+    }
 }
