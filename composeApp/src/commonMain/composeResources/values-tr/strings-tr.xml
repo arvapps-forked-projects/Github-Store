@@ -190,7 +190,7 @@
     <string name="update_to_version">%1$s'e güncelle</string>
 
     <!-- General -->
-    <string name="error_load_details">Detaylarken yüklenemedi</string>
+    <string name="error_load_details">Detaylar yüklenemedi</string>
     <string name="installer_saved_downloads">Yükleyici, İndirilenler klasörüne kaydedildi</string>
 
     <!-- Download / install states -->
