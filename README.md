@@ -42,9 +42,14 @@
 </br>
 </br>
 
+
+<p align="center">
+  <a href="https://trendshift.io/repositories/15655" target="_blank"><img src="https://trendshift.io/api/badge/repositories/15655" alt="rainxchzed%2FGithub-Store | Trendshift" style="width: 250px; height: 54px;" width="250" height="55" />
+
 <a href="https://hellogithub.com/en/repository/rainxchzed/Github-Store" target="_blank">
   <img src="https://abroad.hellogithub.com/v1/widgets/recommend.svg?rid=rainxchzed%2FGithub-Store&claim_uid=&theme=dark" alt="Featured｜HelloGitHub" style="width: 250px; height: 54px;" width="250" height="54" />
 </a>
+</p>
 
 </p>
 
@@ -73,7 +78,9 @@ Built with Kotlin Multiplatform and Compose Multiplatform for Android and Deskto
 
 Check out GitHub Store [Wiki](https://github.com/rainxchzed/Github-Store/wiki) for FAQ and useful information
 
-**Privacy Policy:** [github-store.org/privacy-policy](https://github-store.org/privacy-policy/)
+🌐 **Website:** [github-store.org](https://github-store.org)
+💬 **Discord:** [Join the community](https://discord.gg/x9Cvh2Z9qS)
+📜 **Privacy Policy:** [github-store.org/privacy-policy](https://github-store.org/privacy-policy/)
 
 </div>
 
@@ -106,6 +113,12 @@ GitHub® is a registered trademark of GitHub, Inc.
 </a>
 <a href="https://apps.obtainium.imranr.dev/redirect.html?r=obtainium://add/https://github.com/rainxchzed/Github-Store/">
   <img src="https://raw.githubusercontent.com/ImranR98/Obtainium/main/assets/graphics/badge_obtainium.png" height="60" alt="Get it on Obtainium">
+</a>
+</p>
+
+<p align="center">
+  <a href="https://discord.gg/x9Cvh2Z9qS">
+  <img src="https://img.shields.io/badge/Discord-Join%20Community-5865F2?style=for-the-badge&logo=discord&logoColor=white" alt="Join Discord">
 </a>
 </p>
 
@@ -320,7 +333,7 @@ I built and maintain this entirely on my own while finishing high school. Your s
 - ⭐ **Starring this repo** — helps others discover GitHub Store
 - 🐛 **Reporting bugs** — makes the app better for everyone
 - 📢 **Sharing with friends** — spread the word to other developers
-- 💬 **Joining discussions** — your feedback shapes the roadmap
+- 💬 **Joining our [Discord](https://discord.gg/x9Cvh2Z9qS)** — your feedback shapes the roadmap
 
 Every bit of support—financial or not—means the world and keeps this project alive. Thank you!
 
