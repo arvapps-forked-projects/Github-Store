@@ -951,7 +951,7 @@ class AppsViewModel(
                 val variantOptions =
                     buildList {
                         preview.matchedAssets.forEach { asset ->
-                            val variant = AssetVariant.extract(asset.name)
+                            val variant = AssetVariant.extract(asset.name, preview.release?.tagName)
                             if (!variant.isNullOrEmpty()) {
                                 add(
                                     VariantOption(
@@ -1179,6 +1179,7 @@ class AppsViewModel(
                             pinnedVariant = app.preferredAssetVariant,
                             pinnedTokens = AssetVariant.deserializeTokens(app.preferredAssetTokens),
                             pinnedGlob = app.assetGlobPattern,
+                            releaseTag = latestRelease.tagName,
                         )
                     val primaryAsset =
                         variantMatch
@@ -1965,6 +1966,7 @@ class AppsViewModel(
                         linkValidationStatus = null,
                         linkStep = LinkStep.PickAsset,
                         linkInstallableAssets = installableAssets,
+                        linkAssetsReleaseTag = latestRelease.tagName,
                         linkAssetFilter = suggestedFilter.orEmpty(),
                         linkAssetFilterError = null,
                         linkFallbackToOlder = false,
@@ -1997,6 +1999,7 @@ class AppsViewModel(
         val selectedApp = _state.value.selectedDeviceApp ?: return
         val repoInfo = _state.value.fetchedRepoInfo ?: return
         val siblingCount = _state.value.linkInstallableAssets.size
+        val pickedReleaseTag = _state.value.linkAssetsReleaseTag
         val pickedIndex =
             _state.value.linkInstallableAssets
                 .indexOfFirst { it.id == asset.id }
@@ -2021,6 +2024,7 @@ class AppsViewModel(
                     fallbackToOlderReleases = fallbackToOlder,
                     pickedAssetName = asset.name,
                     pickedAssetSiblingCount = siblingCount,
+                    pickedAssetReleaseTag = pickedReleaseTag,
                     pickedAssetIndex = pickedIndex,
                     sourceHost = _state.value.linkSourceHost,
                 )
